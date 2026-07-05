@@ -29,7 +29,12 @@ const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const userPhoto = document.getElementById("userPhoto");
 const userName = document.getElementById("userName");
+const profile = document.getElementById("profile");
+const profileMenu = document.getElementById("profileMenu");
 
+profile.addEventListener("click", () => {
+    profileMenu.classList.toggle("show");
+});
 // Check login state
 onAuthStateChanged(auth, (user) => {
     if (user) {
