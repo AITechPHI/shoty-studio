@@ -4,8 +4,11 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  signOut
+  signOut,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCqwO3TFoRl93NgQklp_KcLlGO47gorQrM",
   authDomain: "starry-being-501319-d4-82d6d.firebaseapp.com",
@@ -16,73 +19,56 @@ const firebaseConfig = {
   measurementId: "G-8D5LFF43LJ"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider(
-  onAuthStateChanged(auth, (user) => {
-  const photo = document.getElementById("userPhoto");
-  const name = document.getElementById("userName");
+const provider = new GoogleAuthProvider();
 
+// Elements
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const userPhoto = document.getElementById("userPhoto");
+const userName = document.getElementById("userName");
+
+// Check login state
+onAuthStateChanged(auth, (user) => {
   if (user) {
-    photo.src = user.photoURL;
-    photo.style.display = "block";
-    name.textContent = user.displayName;
+    userPhoto.src = user.photoURL;
+    userPhoto.style.display = "block";
+    userName.textContent = user.displayName;
   } else {
-    photo.style.display = "none";
-    photo.src = "";
-    name.textContent = "";
+    userPhoto.src = "";
+    userPhoto.style.display = "none";
+    userName.textContent = "";
   }
 });
+
+// Login
+if (loginBtn) {
+  loginBtn.addEventListener("click", async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+
+      userPhoto.src = result.user.photoURL;
+      userPhoto.style.display = "block";
+      userName.textContent = result.user.displayName;
+
+      alert("Welcome, " + result.user.displayName);
+    } catch (error) {
+      alert(error.message);
+    }
+  });
+}
+
+// Logout
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
       await signOut(auth);
 
-      document.getElementById("userPhoto").src = "";
-      document.getElementById("userPhoto").style.display = "none";
-      document.getElementById("userName").textContent = "";
-
-      alert("Logged out successfully.");
-    } catch (error) {
-      alert(error.message);
-    }
-      await signOut(auth);
-
-      document.getElementById("userPhoto").src = "";
-      document.getElementById("userPhoto").style.display = "none";
-      document.getElementById("userName").textContent = "";
-
-      alert("Logged out successfully.");
-    } catch (error) {
-      alert(error.message);
-    }
-  });
-if (loginBtn) {
-    ...
-}
-
-
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-
-if (loginBtn) {
-  loginBtn.addEventListener("click", async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-     document.getElementById("userPhoto").src = result.user.photoURL;
-document.getElementById("userPhoto").style.display = "block";
-document.getElementById("userName").textContent = result.user.displayName;
-      alert("Welcome, " + result.user.displayName);
-    } catch (error) {
-      alert(error.message);
-   if (logoutBtn) {
-  logoutBtn.addEventListener("click", async () => {
-    try {
-      await signOut(auth);
-
-      document.getElementById("userPhoto").src = "";
-      document.getElementById("userPhoto").style.display = "none";
-      document.getElementById("userName").textContent = "";
+      userPhoto.src = "";
+      userPhoto.style.display = "none";
+      userName.textContent = "";
 
       alert("Logged out successfully.");
     } catch (error) {
@@ -90,6 +76,3 @@ document.getElementById("userName").textContent = result.user.displayName;
     }
   });
 }
-  });
-}
-
