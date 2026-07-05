@@ -17,7 +17,17 @@
 
 <a href="#services" class="btn">
 Explore Now
-</a>
+<div id="profile">
+  <img id="userPhoto" src="" style="display:none;">
+  <span id="userName"></span>
+
+  <div id="profileMenu" class="dropdown">
+    <a href="#">👤 My Profile</a>
+    <a href="#">⚙️ Settings</a>
+    <a href="#">📊 Dashboard</a>
+    <a href="#" id="logoutLink">🚪 Logout</a>
+  </div>
+</div>
     <button id="loginBtn" class="btn">Sign in with Google</button>
 <button id="logoutBtn" class="btn">Logout</button>
 </header>
@@ -90,4 +100,34 @@ We build secure AI
 
 </body>
 </html>
+#profile{
+    position:relative;
+    display:inline-block;
+    cursor:pointer;
+}
 
+.dropdown{
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    background:#fff;
+    min-width:200px;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+
+.dropdown a{
+    display:block;
+    padding:12px;
+    color:#333;
+    text-decoration:none;
+}
+
+.dropdown a:hover{
+    background:#f2f2f2;
+}
+
+.show{
+    display:block;
+}
