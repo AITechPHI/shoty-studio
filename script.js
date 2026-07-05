@@ -27,6 +27,9 @@ if (loginBtn) {
   loginBtn.addEventListener("click", async () => {
     try {
       const result = await signInWithPopup(auth, provider);
+     document.getElementById("userPhoto").src = result.user.photoURL;
+document.getElementById("userPhoto").style.display = "block";
+document.getElementById("userName").textContent = result.user.displayName;
       alert("Welcome, " + result.user.displayName);
     } catch (error) {
       alert(error.message);
