@@ -32,15 +32,21 @@ const userName = document.getElementById("userName");
 
 // Check login state
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    userPhoto.src = user.photoURL;
-    userPhoto.style.display = "block";
-    userName.textContent = user.displayName;
-  } else {
-    userPhoto.src = "";
-    userPhoto.style.display = "none";
-    userName.textContent = "";
-  }
+    if (user) {
+        userPhoto.src = user.photoURL;
+        userPhoto.style.display = "block";
+        userName.textContent = user.displayName;
+
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+    } else {
+        userPhoto.src = "";
+        userPhoto.style.display = "none";
+        userName.textContent = "";
+
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+    }
 });
 
 // Login
