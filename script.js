@@ -1,14 +1,11 @@
 // Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-// Firebase SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyCqwO3TFoRl93NgQklp_KcLlGO47gorQrM",
   authDomain: "starry-being-501319-d4-82d6d.firebaseapp.com",
