@@ -26,7 +26,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (loginBtn) {
   loginBtn.addEventListener("click", async () => {
     try {
-alert("Welcome, " + result.user.displayName);
+      const result = await signInWithPopup(auth, provider);
       alert("Welcome, " + result.user.displayName);
     } catch (error) {
       alert(error.message);
