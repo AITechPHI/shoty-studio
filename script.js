@@ -20,7 +20,9 @@ if (profile && profileMenu) {
 
   document.addEventListener("click", (e) => {
     if (!profile.contains(e.target)) {
-      profileMenu.classList.remove("show");
+      if (profileMenu) {
+    profileMenu.classList.remove("show");
+}
     }
   });
 }
@@ -60,7 +62,9 @@ if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
       await signOut(auth);
-      profileMenu.classList.remove("show");
+      if (profileMenu) {
+    profileMenu.classList.remove("show");
+}
     } catch (error) {
       alert(error.message);
     }
