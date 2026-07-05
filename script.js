@@ -1,3 +1,5 @@
+alert("JavaScript Loaded!");
+
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.querySelector(".btn");
 
