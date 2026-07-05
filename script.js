@@ -18,7 +18,49 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+const provider = new GoogleAuthProvider(
+  onAuthStateChanged(auth, (user) => {
+  const photo = document.getElementById("userPhoto");
+  const name = document.getElementById("userName");
+
+  if (user) {
+    photo.src = user.photoURL;
+    photo.style.display = "block";
+    name.textContent = user.displayName;
+  } else {
+    photo.style.display = "none";
+    photo.src = "";
+    name.textContent = "";
+  }
+});
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+
+      document.getElementById("userPhoto").src = "";
+      document.getElementById("userPhoto").style.display = "none";
+      document.getElementById("userName").textContent = "";
+
+      alert("Logged out successfully.");
+    } catch (error) {
+      alert(error.message);
+    }
+      await signOut(auth);
+
+      document.getElementById("userPhoto").src = "";
+      document.getElementById("userPhoto").style.display = "none";
+      document.getElementById("userName").textContent = "";
+
+      alert("Logged out successfully.");
+    } catch (error) {
+      alert(error.message);
+    }
+  });
+if (loginBtn) {
+    ...
+}
+
 
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -33,17 +75,21 @@ document.getElementById("userName").textContent = result.user.displayName;
       alert("Welcome, " + result.user.displayName);
     } catch (error) {
       alert(error.message);
-    }
-  });
-}
-
-if (logoutBtn) {
+   if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
       await signOut(auth);
+
+      document.getElementById("userPhoto").src = "";
+      document.getElementById("userPhoto").style.display = "none";
+      document.getElementById("userName").textContent = "";
+
       alert("Logged out successfully.");
     } catch (error) {
       alert(error.message);
     }
   });
 }
+  });
+}
+
