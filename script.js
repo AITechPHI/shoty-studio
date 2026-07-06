@@ -1,8 +1,25 @@
-// Initialize Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCqwO3TFoRl93NgQklp_KcLlGO47gorQrM",
+  authDomain: "starry-being-501319-d4-82d6d.firebaseapp.com",
+  projectId: "starry-being-501319-d4-82d6d",
+  storageBucket: "starry-being-501319-d4-82d6d.firebasestorage.app",
+  messagingSenderId: "256981728828",
+  appId: "1:256981728828:web:addc1ed6c357405f464d39",
+  measurementId: "G-8D5LFF43LJ"
+};
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-
 // Elements
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -20,9 +37,7 @@ if (profile && profileMenu) {
 
   document.addEventListener("click", (e) => {
     if (!profile.contains(e.target)) {
-      if (profileMenu) {
-    profileMenu.classList.remove("show");
-}
+      profileMenu.classList.remove("show");
     }
   });
 }
@@ -30,19 +45,23 @@ if (profile && profileMenu) {
 // Check login state
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    userPhoto.src = user.photoURL || "";
-    userPhoto.style.display = "block";
-    userName.textContent = user.displayName || "";
+    if (userPhoto) {
+      userPhoto.src = user.photoURL || "";
+      userPhoto.style.display = "block";
+    }
 
-    loginBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
+    if (userName) {
+      userName.textContent = user.displayName || "";
+    }
+
+    if (loginBtn) loginBtn.style.display = "none";
+    if (logoutBtn) logoutBtn.style.display = "inline-block";
   } else {
-    userPhoto.src = "";
-    userPhoto.style.display = "none";
-    userName.textContent = "";
+    if (userPhoto) userPhoto.style.display = "none";
+    if (userName) userName.textContent = "";
 
-    loginBtn.style.display = "inline-block";
-    logoutBtn.style.display = "none";
+    if (loginBtn) loginBtn.style.display = "inline-block";
+    if (logoutBtn) logoutBtn.style.display = "none";
   }
 });
 
@@ -62,9 +81,7 @@ if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
       await signOut(auth);
-      if (profileMenu) {
-    profileMenu.classList.remove("show");
-}
+      if (profileMenu) profileMenu.classList.remove("show");
     } catch (error) {
       alert(error.message);
     }
